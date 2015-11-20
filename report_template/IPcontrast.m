@@ -1,0 +1,6 @@
+% Function to compute contrast of image
+function reducedImage = IPcontrast(image, numLevels)
+   %Here comes your code
+   .....................
+   .....................
+end
