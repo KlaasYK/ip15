@@ -157,12 +157,6 @@ the absolute value.
 \end{enumerate}
 
 \section*{Task distribution}
-\begin{tabular}{ccccc}
-Name & ex1 & ex2 & ex3 & report\\
-\hline
-Klaas &   80\% &    80\% &    20\%&    50\%\\
-\hline
-Jan &    20\% &    20\% &    80\% &    50\%
-\end{tabular}
+
 
 \end{document}
