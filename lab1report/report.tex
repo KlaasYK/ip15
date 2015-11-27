@@ -74,7 +74,7 @@ Instead of sampling, the corresponding pixel from the original is duplicated mul
 \end{figure}
 \item
 When you shrink the original image pixel information is lost, since only every tenth pixel is used 
-for the new image. When zooming in, the information can not be retrieved, since the new image only contians
+for the new image. When zooming in, the information can not be retrieved, since the new image only contains
 the samples of every tenth pixel.
 
 \end{enumerate}
@@ -91,9 +91,9 @@ This 1D array is then plotted.
 \item
 The function uses the histogram of the former exercise.
 It can be given as an argument or is created by the function itself.
-Then a cummalative histogram is created. The histogram is then normalised for the number of pixels.
+Then a cumulative histogram is created. The histogram is then normalised for the number of pixels.
 Then a new image is created by iterating over all the pixels in the original image.
-For each puixel, the value is looked up in the cummalative histrogram and then multiplied by
+For each pixel, the value is looked up in the cumulative histrogram and then multiplied by
 256 to acquire the new gray levels.
 \lstinputlisting{../lab1ex2/IPhisteq.m}
 \item
@@ -137,13 +137,14 @@ flat as possible.
 \exercise{Spatial filtering}
 \begin{enumerate}
 \item
+The algorithm is based on the algorithm shown in the slides for applying a uniform mask.
 First, 8 images are created from the original image by shifting rows and columns in the 8 neighborhood.
 Then each part of the mask is applied seperately on each of these images in such that
 the each part of the mask is applied to the right (shifted) image.
 These values are then summed to achieve correlation of the image with the mask.
 \lstinputlisting{../lab1ex3/IPfilter.m}
 \item
-This function uses the IPfilter function from the previous step. It applies the vertical
+This function uses the IPfilter function from the previous step and the given equations. It applies the vertical
 and horizontal Sobel mask. The resulting image is retrieved by adding these togehter after taking
 the absolute value.
 \lstinputlisting{../lab1ex3/IPSobel.m}
@@ -157,12 +158,35 @@ the absolute value.
 \end{enumerate}
 
 \section*{Task distribution}
+
+\begin{table}[H]
 \begin{tabular}{ccccc}
-Name & ex1 & ex2 & ex3 & report\\
+ex1 & design & implementation & answers questions & writing report \\
 \hline
-Klaas &   80\% &    80\% &    20\%&    50\%\\
+Klaas & 80\% & 80\% & 50\% & 50\% \\
 \hline
-Jan &    20\% &    20\% &    80\% &    50\%
+Jan & 20\% & 20\% & 50\% & 50\% \\
 \end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{ccccc}
+ex2 & design & implementation & answers questions & writing report \\
+\hline
+Klaas & 80\% & 80\% & 50\% & 50\% \\
+\hline
+Jan & 20\% & 20\% & 50\% & 50\% \\
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{ccccc}
+ex3 & design & implementation & answers questions & writing report \\
+\hline
+Klaas & 20\% & 20\% & 50\% & 50\% \\
+\hline
+Jan & 80\% & 80\% & 50\% & 50\% \\
+\end{tabular}
+\end{table}
 
 \end{document}
