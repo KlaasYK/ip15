@@ -90,22 +90,25 @@ This value is equal to the result achieved by using \lstinline|mean| two times.
 \begin{enumerate}
 \item 
 %TODO: explain the code
-%\lstinputlisting{../lab2ex2/IPgaussian.m}
+\begin{displaymath}
+H(u,v) = 1 - e^{- \frac{{D(u,v)}^2}{2 \cdot D_{0}^2}} = 1 - e^{- \frac{(u - P/2)^2 + (v - Q/2)^2}{2 \cdot D_{0}^2}}
+\end{displaymath}
+\lstinputlisting{../lab2ex2/IPgaussian.m}
 \item
 %TODO: explain the code
-%\lstinputlisting{../lab2ex2/IPftfilter.m}
+\lstinputlisting{../lab2ex2/IPftfilter.m}
 \item
 \begin{figure}[H]
 \centering
-\includegraphics[width=.5\textwidth]{../lab2ex1/characters.png}
-\caption{Original image}
-\label{fig:chars2}
-\end{figure}
-\begin{figure}[H]
-\centering
-%TODO: update the image
-\includegraphics[width=.55\textwidth]{../lab2ex1/characters.png}
-\caption{Gausian filtering on figure \ref{fig:chars2}}
+\begin{tabular}{cc}
+    \includegraphics[width=0.4\textwidth]{../lab2ex1/characters.png} &
+    \includegraphics[width=0.4\textwidth]{../lab2ex2/characters-GHPF-D30.png} \\
+    Original image & $D_{0} = 30$ \\
+    \includegraphics[width=0.4\textwidth]{../lab2ex2/characters-GHPF-D60.png} &
+    \includegraphics[width=0.4\textwidth]{../lab2ex2/characters-GHPF-D160.png} \\
+    $D_{0} = 60$ & $D_{0} = 160$ \\
+\end{tabular}
+\caption{Gausian Highpass Filtering}
 \end{figure}
 \end{enumerate}
 
