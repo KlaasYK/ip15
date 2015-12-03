@@ -84,6 +84,8 @@ In this case:  207.31 for figure \ref{fig:chars}.
 This value is equal to the result achieved by using \lstinline|mean| two times.
 \end{enumerate}
 
+\newpage
+
 \exercise{Highpass filtering in the frequency domain}
 \begin{enumerate}
 \item 
@@ -111,6 +113,11 @@ This value is equal to the result achieved by using \lstinline|mean| two times.
 \begin{enumerate}
 \item
 %TODO: explain the code
+The \lstinline|IPmedian| function takes the distorted image and a value k as its input parameters.
+The for each pixel in the image, a window is created with width and height of $2k+2$.
+When encountering a boundary, the windowsize is decreased to fit the image.
+A submatrix is then used to represent all the pixels in the window.
+From this submatrix, the median is calculated and used for the output image.
 \lstinputlisting{../lab2ex3/IPmedian.m}
 \item
 \begin{figure}[H]
@@ -127,7 +134,6 @@ This value is equal to the result achieved by using \lstinline|mean| two times.
 \end{figure}
 \item
 %TODO: place all the images
-
 \begin{figure}[H]
 \centering
 \begin{tabular}{cc}
@@ -140,17 +146,19 @@ This value is equal to the result achieved by using \lstinline|mean| two times.
     
 \end{tabular}
 \caption{Using median filtering with different window values $k$ on figure \ref{fig:noise}} 
+\label{fig:restored}
 \end{figure}
-
-
-
-%TODO: explain the difference with the book (Fig 5.10(b)
-
+In the image created by filtering with $k=1$, some noise is still present.
+This is equal to the image 5.10b in the book. Using $k=2$ removes all noise particles.
+Increasing k further reduces the sharpness of the image as can be seen in the two lower 
+images in \ref{fig:restored}
 \end{enumerate}
 
+\newpage
 \section*{Task distribution}
 
 \begin{table}[H]
+\centering
 \begin{tabular}{ccccc}
 ex1 & design & implementation & answers questions & writing report \\
 \hline
@@ -161,6 +169,7 @@ Jan & 50\% & 0\% & 50\% & 50\% \\
 \end{table}
 
 \begin{table}[H]
+\centering
 \begin{tabular}{ccccc}
 ex2 & design & implementation & answers questions & writing report \\
 \hline
@@ -171,6 +180,7 @@ Jan & 50\% & 100\% & 50\% & 50\% \\
 \end{table}
 
 \begin{table}[H]
+\centering
 \begin{tabular}{ccccc}
 ex3 & design & implementation & answers questions & writing report \\
 \hline
@@ -178,6 +188,8 @@ Klaas & 50\% & 100\% & 50\% & 50\% \\
 \hline
 Jan & 50\% & 0\% & 50\% & 50\% \\
 \end{tabular}
-\end{table}
+\end{table} 
+
+
 
 \end{document}
