@@ -56,14 +56,15 @@
 \begin{enumerate}
 \item
 % TODO: explain the code
-The functions build in functions fft2 and fftshift are used to create the fourier spectrum 
-image centered around the DC component of the fourier transform.
+The build in functions fft2 and fftshift are used to create the Fourier spectrum 
+image centered around the DC component of the Fourier transform.
 Some extra code is added for calculating the average of the image, which will be explained in more
 detail in part c of this exercise.
 To be able to view the spectrum, the values need to be scaled. So the log is taken of each value
 to increase the constrast.
 \lstinputlisting{../lab2ex1/runex1.m}
 \item 
+The spectrum can be seen in figure \ref{fig:spectrum}.
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{../lab2ex1/characters.png}
@@ -74,10 +75,11 @@ to increase the constrast.
 \centering
 \includegraphics[width=.5\textwidth]{../lab2ex1/spectrum.png}
 \caption{Fourier spectrum of figure \ref{fig:chars}}
+\label{fig:spectrum}
 \end{figure}
 \item
 % TODO: explain why the DC factor div numpixs = average
-The maginitude of the center of the image is the DC component.
+The magnitude of the center of the image is the DC component.
 For images, this is the sum of the grey levels of all pixels.
 Dividing this by the number of pixels gives the average grey level.
 In this case:  207.31 for figure \ref{fig:chars}.
@@ -122,6 +124,7 @@ This does not influence the result, so it was omited.
 %TODO: explain the code
 \lstinputlisting{../lab2ex2/IPftfilter.m}
 \item
+The results can be seen in figure \ref{fig:gauss}
 \begin{figure}[H]
 \centering
 \begin{tabular}{cc}
@@ -132,10 +135,11 @@ This does not influence the result, so it was omited.
     \includegraphics[width=0.4\textwidth]{../lab2ex2/characters-GHPF-D160.png} \\
     $D_{0} = 60$ & $D_{0} = 160$ \\
 \end{tabular}
-\caption{Gausian Highpass Filtering}
+\caption{Gaussian Highpass Filtering}
+\label{fig:gauss}
 \end{figure}
 \end{enumerate}
-
+\newpage
 \exercise{Median filtering}
 \begin{enumerate}
 \item
@@ -147,6 +151,7 @@ A submatrix is then used to represent all the pixels in the window.
 From this submatrix, the median is calculated and used for the output image.
 \lstinputlisting{../lab2ex3/IPmedian.m}
 \item
+The image original image (\ref{fig:circuit}) and the image distorted by noise (\ref{fig:noise}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=.5\textwidth]{../lab2ex3/circuitboard.png}
@@ -178,7 +183,7 @@ From this submatrix, the median is calculated and used for the output image.
 In the image created by filtering with $k=1$, some noise is still present.
 This is equal to the image 5.10b in the book. Using $k=2$ removes all noise particles.
 Increasing k further reduces the sharpness of the image as can be seen in the two lower 
-images in \ref{fig:restored}
+images in figure \ref{fig:restored}.
 \end{enumerate}
 
 \newpage
