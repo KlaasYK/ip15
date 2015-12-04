@@ -89,12 +89,36 @@ This value is equal to the result achieved by using \lstinline|mean| two times.
 \exercise{Highpass filtering in the frequency domain}
 \begin{enumerate}
 \item 
-%TODO: explain the code
+The Gaussian highpass transfer function is given by
 \begin{displaymath}
 H(u,v) = 1 - e^{- \frac{{D(u,v)}^2}{2 \cdot D_{0}^2}} = 1 - e^{- \frac{(u - P/2)^2 + (v - Q/2)^2}{2 \cdot D_{0}^2}}
 \end{displaymath}
+where $P \geq 2\cdot M - 1$, $ Q \geq 2 \cdot N - 1$, $u = [0, P-1]$ and $v = [0, Q-1]$.
+This function is used to lessen the strength of low frequencies in a spectrum by multiplying it elementwise with said spectrum.
+An example can be seen in Figure~\ref{fig:ghpf}.
+Note that the white part allow the frequencies to pass through, while the black part weakens low frequencies if the spectrum is centered.
+\begin{figure}[H]
+\centering
+\includegraphics[width=.5\textwidth]{../lab2ex2/filter.png}
+\caption{The Gaussian highpass filter with $D_{0} = 30$}
+\label{fig:ghpf}
+\end{figure}
+Another thing to note is that filter size is bigger than the image size.
+The reason for this is that the image is expected to be padded to prevent wraparound errors as shown in Figure~4.32 in the book.
+%TODO: explain the code
 \lstinputlisting{../lab2ex2/IPgaussian.m}
 \item
+The general way of applying filters in the frequency domain is summarized in Section 4.7.3 of the book.
+In the case of IPftfilter the steps are as follows:
+\begin{description}
+\item[Step 1] Pad the image to the size of the filter to prevent wraparound errors.
+\item[Step 2] Perform DFT on this padded image to get the spectrum.
+\item[Step 3] Apply the given filter to the spectrum.
+\item[Step 4] Perform the inverse DFT on the new spectrum and take the real parts.
+\item[Step 5] Extract the final image by removing the padding.
+\end{description}
+Note that this can also be done with every spectrum shifted to the center.
+This does not influence the result, so it was omited.
 %TODO: explain the code
 \lstinputlisting{../lab2ex2/IPftfilter.m}
 \item
