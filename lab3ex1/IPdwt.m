@@ -13,7 +13,7 @@ for i = 1 : s
   diffs = (odds - evens);
   % Put the new values
   out(1:initl) = [sums, diffs] / sqrt2;
-  initl = initl / 2
+  initl = initl / 2;
 end
 
 retval = out;
