@@ -3,26 +3,29 @@ function retval = IPdwt2(x, j)
 % note that x should be double instead of uint, because
 % the result can get negative
 out = x;
-coef = 1/2;
+coef = 1/sqrt(2);
 
 initrow = size(out, 1);
 initcol = size(out, 2);
 
 for i = 1 : j
+  % 1D DWT along the rows
   odds_c = out(1:initrow, 1:2:initcol);
   evens_c = out(1:initrow, 2:2:initcol);
   sums = (odds_c + evens_c);
   diffs = (odds_c - evens_c);
   out(1:initrow, 1:initcol) = [sums, diffs] * coef;
 
+  % 1D DWT along the columns
   odds_r = out(1:2:initrow, 1:initcol);
   evens_r = out(2:2:initrow, 1:initcol);
   sums = (odds_r + evens_r) * coef;
   diffs = (odds_r - evens_r) * coef;
   
-  %
   mid_r = initrow / 2;
   mid_c = initcol / 2;
+
+  % save the parts as in the figures in the book
   % approximation image
   out(1:mid_r, 1:mid_c) = sums(:, 1:mid_c);
   % vertical detail
@@ -38,4 +41,4 @@ end
 
 retval = out;
 
-endfunction
+end

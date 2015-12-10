@@ -1,6 +1,7 @@
 % inverse discrete wavelet transform
 function retval = IPidwt2(x, s);
 out = x;
+coef = 1/sqrt(2);
 
 [height, width] = size(x);
 initrow = height / (2^(s-1));
@@ -19,8 +20,8 @@ for i = 1 : s
   mins = (rowsums-rowdiffs);
   % Combine the new values
   combined = zeros(initrow,initcol);
-  combined(1:2:end,:) = plus;
-  combined(2:2:end,:) = mins;
+  combined(1:2:end,:) = plus * coef;
+  combined(2:2:end,:) = mins * coef;
   % Replace the values in the image
   out(1:initrow,1:initcol) = combined;
 
@@ -32,8 +33,8 @@ for i = 1 : s
   plus = (colsums+coldiffs);
   mins = (colsums-coldiffs);
   % Combine the new values
-  combined(:,1:2:end) = plus;
-  combined(:,2:2:end) = mins;
+  combined(:,1:2:end) = plus * coef;
+  combined(:,2:2:end) = mins * coef;
   % Replace the values in the image
   out(1:initrow,1:initcol) = combined;
   
