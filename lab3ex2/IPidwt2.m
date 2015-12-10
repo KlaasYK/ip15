@@ -23,11 +23,11 @@ for i = 1 : s
   combined(2:2:end,:) = mins;
   % Replace the values in the image
   out(1:initrow,1:initcol) = combined;
-  
+
   % Do the same with the columns
   colsums = out(1:initrow,1:mid_c);
   coldiffs = out(1:initrow,mid_c+1:initcol);
-  
+
   % Calculate and scale the result
   plus = (colsums+coldiffs);
   mins = (colsums-coldiffs);
