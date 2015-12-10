@@ -24,12 +24,11 @@ threshed(1:hl,1:wl) = wtrans(1:hl,1:wl);
 compressed = IPidwt2(threshed, scale);
 
 error = compressed - img;
-%rmse = rms(error); % signal pkg
-%disp("Root mean square error:");
-%disp(rmse);
+errorsq = error .* error;
+rmse = sqrt(mean(mean(errorsq)));
+printf("Root mean square error: %f\n",rmse);
 
 squared = compressed .* compressed;
-errorsq = error .* error;
 snr = sum(sum(squared)) / sum(sum(errorsq));
 printf("Mean square signal to noise: %f:1\n",snr);
 
