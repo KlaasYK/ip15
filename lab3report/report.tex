@@ -55,15 +55,22 @@
 \exercise{1-D wavelet transforms}
 \begin{enumerate}
 \item
-Assuming the length of the input vector is a power of two,
-it is possible to iterate over the input vector applying the algoritm described by example 7.8.
-The current length is initialized to the length of the vector. For each step, this length is halved.
-Since the input vector of a step is split in half, a part with sums and a part with differences,
-the next step will only use the sums, as specified by the algoritm.
-First two vector are created by taking the odd and even element of the input vector until the current length of the scale.
-Two result vectors are calculated for the sums and the differences.
-The difference vector is positioned after the sum vector and written to the input vector.
-The values of the sum and difference vector needs normalization, which is a factor of the square root of 2.
+
+%Assuming the length of the input vector is a power of two,
+%it is possible to iterate over the input vector applying the algoritm described by example 7.8.
+%The current length is initialized to the length of the vector. For each step, this length is halved.
+%Since the input vector of a step is split in half, a part with sums and a part with differences,
+%the next step will only use the sums, as specified by the algoritm.
+%First two vector are created by taking the odd and even element of the input vector until the current length of the scale.
+%Two result vectors are calculated for the sums and the differences.
+%The difference vector is positioned after the sum vector and written to the input vector.
+%The values of the sum and difference vector needs normalization, which is a factor of the square root of 2.
+The algorithm given in the assignment can be represented as a filter bank based on the Haar scaling and wavelet vectors.
+Normally the whole input would be convolved with these vectors.
+However since the two-point sums and differences are taken this is convolution is combined with downscaling.
+Our implementation of a $j$-scale DWT is based on this algorithm by applying this ``filter bank'' $j$ times.
+Otherwise its implementation is rather trivial.
+
 \lstinputlisting{../lab3ex1/IPdwt.m}
 \item 
 For the inverse wavelet transform, the inital length is set to the end of the length of the last sum vector.
@@ -79,7 +86,12 @@ This is repeated until the orignal scale of the transformation is reached.
 \exercise{2-D wavelet transforms}
 \begin{enumerate}
 \item
-TODO: text
+According to the Section $7.5$ in the book the extension of 1D DWT to 2D is simple, because of the separable scaling and wavelet functions.
+It also mentions that the 2D DWT can be computed by first doing a 1D DWT of the columns and then doing a 1D DWT of the rows.
+Note that one could also calculate the DWT first for rows and then for columns.
+Our implementation uses this fact.
+In each iteration $j$ the algorithm of exercise 1 is applied to each row and then to each column to get the approximation, the horizontal detail, the vertical detail and the diagonal detail.
+
 \lstinputlisting{../lab3ex2/IPdwt2.m}
 \item
 TODO: text
@@ -99,8 +111,11 @@ TODO: text
 \end{figure}
 
 \item
-TODO: text
-
+According to Section $7.5$ the 2D inverse DWT can also be computed by using a 1D inverse DWT function.
+So similarly on how our 2D DWT implementation is based on our 1D DWT implemention, the 2D inverse DWT is also based on the 1D DWT implementation.
+Note however that the order of applying 1D DWT first to rows and then columns in the 2D DWT, has to be inverted in the 2D inverse DWT.
+Hence our iplementation first applies a 1D inverse DWT to the columns and the one to the rows.
+\lstinputlisting{../lab3ex2/IPidwt2.m}
 \begin{figure}[H]
 \centering
 \begin{tabular}{cc}
@@ -215,9 +230,9 @@ Jan & 40\% & 10\% & n.a. & 25\% \\
 \begin{tabular}{ccccc}
 ex2 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 40\% & 20\% & 50\% & 25\% \\
+Klaas & 50\% & 50\% & 50\% & 50\% \\
 \hline
-Jan & 60\% & 80\% & 50\% & 75\% \\
+Jan & 50\% & 50\% & 50\% & 50\% \\
 \end{tabular}
 \end{table}
 

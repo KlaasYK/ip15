@@ -33,4 +33,4 @@ w = out(1:initrow, 1:initcol);
 out(1:initrow, 1:initcol) = (w - min(min(w))) * (1 / (max(max(w)) - min(min(w))));
 
 retval = out;
-endfunction
+end
