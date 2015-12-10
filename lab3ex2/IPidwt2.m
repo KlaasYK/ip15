@@ -22,7 +22,7 @@ for i = 1 : s
   
   % Do the same with the rows
   rowsums = out(1:initrow/2,1:initcol);
-  rowdiffs = out(initrow/2+1,1:initcol);
+  rowdiffs = out(initrow/2+1:initrow,1:initcol);
   
   % Calculate and scale the result
   plus = (rowsums+rowdiffs)/sqrt4;
