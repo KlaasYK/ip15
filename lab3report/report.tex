@@ -55,7 +55,11 @@
 \exercise{1-D wavelet transforms}
 \begin{enumerate}
 \item
-% TODO
+The algorithm given in the assignment can be represented as a filter bank based on the Haar scaling and wavelet vectors.
+Normally the whole input would be convolved with these vectors.
+However since the two-point sums and differences are taken this is convolution is combined with downscaling.
+Our implementation of a j-scale DWT is based on this algorithm by applying this ``filter bank'' j times.
+Otherwise its implementation is rather trivial.
 \lstinputlisting{../lab3ex1/IPdwt.m}
 \item 
 % TODO
@@ -102,9 +106,9 @@ Jan & 50\% & 0\% & 50\% & 50\% \\
 \begin{tabular}{ccccc}
 ex2 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 50\% & 0\% & 50\% & 50\% \\
+Klaas & 50\% & 50\% & 50\% & 50\% \\
 \hline
-Jan & 50\% & 100\% & 50\% & 50\% \\
+Jan & 50\% & 50\% & 50\% & 50\% \\
 \end{tabular}
 \end{table}
 
