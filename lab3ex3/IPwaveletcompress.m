@@ -20,9 +20,6 @@ threshed = wtrans .*results;
 % Copy the original image part (for dark values in the original
 threshed(1:hl,1:wl) = wtrans(1:hl,1:wl);
 
-% TODO: calculate the compression
-
-
 % Convert it back
 compressed = IPidwt2(threshed, scale);
 
@@ -34,8 +31,13 @@ error = compressed - img;
 squared = compressed .* compressed;
 errorsq = error .* error;
 snr = sum(sum(squared)) / sum(sum(errorsq));
-disp("Mean square signal to noise:");
-disp(snr);
+printf("Mean square signal to noise: %f:1\n",snr);
+
+% Calculatute the compression
+orig = entropy(im2uint8(img));
+comp = entropy(im2uint8(threshed));
+printf("Compress ratio: %f:1\n",orig/comp);
+
 
 retval = compressed;
 
