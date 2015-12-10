@@ -55,10 +55,22 @@
 \exercise{1-D wavelet transforms}
 \begin{enumerate}
 \item
-% TODO
+Assuming the length of the input vector is a power of two,
+it is possible to iterate over the input vector applying the algoritm described by example 7.8.
+The current length is initialized to the length of the vector. For each step, this length is halved.
+Since the input vector of a step is split in half, a part with sums and a part with differences,
+the next step will only use the sums, as specified by the algoritm.
+First two vector are created by taking the odd and even element of the input vector until the current length of the scale.
+Two result vectors are calculated for the sums and the differences.
+The difference vector is positioned after the sum vector and written to the input vector.
+The values of the sum and difference vector needs normalization, which is a factor of the square root of 2.
 \lstinputlisting{../lab3ex1/IPdwt.m}
 \item 
-% TODO
+For the inverse wavelet transform, the inital length is set to the end of the length of the last sum vector.
+Then for each step the sum and difference vectors are retrieved from the input vector.
+Two new component vectors are created for the values. These need to be scaled again to retrieve the right results.
+The component vectors are then interleaved and replace their original values in the input vector.
+This is repeated until the orignal scale of the transformation is reached.
 \lstinputlisting{../lab3ex1/IPidwt.m}
 \end{enumerate}
 
@@ -67,20 +79,121 @@
 \exercise{2-D wavelet transforms}
 \begin{enumerate}
 \item
+TODO: text
 \lstinputlisting{../lab3ex2/IPdwt2.m}
 \item
+TODO: text
 \lstinputlisting{../lab3ex2/IPdwt2scale.m}
 \item
+TODO: text
 \lstinputlisting{../lab3ex2/runex2.m}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cc}
+ \includegraphics[width=0.4\textwidth]{../lab3ex2/vase.png} & \includegraphics[width=0.4\textwidth]{../lab3ex2/scaled.png} \\
+ Original image & 3 scale wavelet transform \\
+\end{tabular}
+\caption{3 scale wavelet transform of the orignal image}
+\label{fig:wavelet}
+\end{figure}
+
 \item
-\lstinputlisting{../lab3ex2/IPidwt2.m}
+TODO: text
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cc}
+ \includegraphics[width=0.4\textwidth]{../lab3ex2/vase.png} & \includegraphics[width=0.4\textwidth]{../lab3ex2/output.png} \\
+ Original image & Restoration of the image form figure \ref{fig:wavelet} \\
+\end{tabular}
+\caption{3 scale wavelet transform restoration}
+\label{fig:waveletback}
+\end{figure}
+
 \end{enumerate}
 
 \exercise{Image Compression}
 \begin{enumerate}
 \item
+First the wavelet transform is performed on the input image.
+A threshold matrix consisting solely of the threshold value is used to find all pixels larger than the threshold in the transform.
+The thresholded image is then retrieved by pointwise multiplication of the results of comparing the threshold matrix with the wavelet transform.
+Since the approximation of the original matrix is also passed by the threshold, it needs to be reconstructed.
+This is done by copying the values from the wavelet transform back to the thresholded image.
+The compressed image is then retrieved by applying the inverse wavelet transform.
+
+\noindent The root mean square error and the mean square signal to noise ratio are calculated from the given formulas.
+For the compression ratio the the build-in function of entropy is used to calculate the entropy of the compressed and
+original image.
+%TODO: Jan, klopt dit een beetje of is dit een beetje vaag/kort door de bocht.
+The entropy is a value for how complex an image is. Compressing the image lowers the complexity.
+Dividing the original entropy by the compressed entropy yields a compression ratio.
+
 \lstinputlisting{../lab3ex3/IPwaveletcompress.m}
 \item
+The quantitative properties for several different scales and thresholds can be seen in table \ref{tab:results}.
+Globally the signal to noise ratio decreases and the errors and compression ratio increase while increasing scale and threshold.
+Although for this image the increasing the scale past 9 was not possible, due to its size being a square of 512 pixels.
+It would seem that increasing it further would not compress the image any further past a compression ratio of 37.
+Increasing the threshold will yield in higher compression ratios. Although the signal to noise ratio decreases exponentiall, while
+the errors increase almost linearly.
+\begin{table}[H]
+\centering
+\begin{tabular}{r|r|r|r|r}
+ \textbf{Scale} & \textbf{Threshold} & \textbf{$\epsilon_{rms}$} & \textbf{SNR} & \textbf{Compression ratio}\\
+ \hline
+ 1 & 0.02 & 0.0086 & 1277.34 & 2.59:1 \\
+ 3 & 0.02 & 0.0157 &  385.47 & 17.42:1 \\
+ 3 & 0.05 & 0.0249 & 152.09  & 24.87:1 \\
+ 3 & 0.10 & 0.0322 & 90.33  & 29.14:1 \\
+ 5 & 0.02 & 0.0220 & 194.71  & 34.00:1 \\
+ 7 & 0.02 & 0.0272 & 127.44  & 36.40:1 \\
+ 7 & 0.05 & 0.0575 & 27.627  & 113.18:1 \\
+ 7 & 0.10 & 0.1035 & 7.837  & 460.20:1 \\
+ 9 & 0.02 & 0.0321 & 91.02   & 36.55:1 \\
+\end{tabular}
+\caption{Quantitative compression quality for different scales and threshold}
+\label{tab:results}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cc}
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/tracy.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l1t002.png} \\
+ Original image & Scale: 1 Threshold: 0.02 \\
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/l5t002.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l9t002.png}  \\
+ Scale: 5 Threshold: 0.02 & Scale: 9 Threshold: 0.02 
+\end{tabular}
+\caption{Increasing wavelet compression scale on an image}
+\label{fig:scaleinc}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cc}
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/tracy.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l3t002.png} \\
+ Original image & Scale: 3 Threshold: 0.02 \\
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/l3t005.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l3t010.png}  \\
+ Scale: 3 Threshold: 0.05 & Scale: 3 Threshold: 0.10 
+\end{tabular}
+\caption{Increasing wavelet compression threshold on scale 3 on an image}
+\label{fig:scale3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{tabular}{cc}
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/tracy.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l7t002.png} \\
+ Original image & Scale: 7 Threshold: 0.02 \\
+ \includegraphics[width=0.4\textwidth]{../lab3ex3/l7t005.png} & \includegraphics[width=0.4\textwidth]{../lab3ex3/l7t010.png}  \\
+ Scale: 7 Threshold: 0.05 & Scale: 7 Threshold: 0.10 
+\end{tabular}
+\caption{Increasing wavelet compression threshold on scale 7 on an image}
+\label{fig:scale7}
+\end{figure}
+
+
 \end{enumerate}
 
 \newpage
@@ -91,9 +204,9 @@
 \begin{tabular}{ccccc}
 ex1 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 50\% & 100\% & 50\% & 50\% \\
+Klaas & 60\% & 90\% & n.a. & 75\% \\
 \hline
-Jan & 50\% & 0\% & 50\% & 50\% \\
+Jan & 40\% & 10\% & n.a. & 25\% \\
 \end{tabular}
 \end{table}
 
@@ -102,9 +215,9 @@ Jan & 50\% & 0\% & 50\% & 50\% \\
 \begin{tabular}{ccccc}
 ex2 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 50\% & 0\% & 50\% & 50\% \\
+Klaas & 40\% & 20\% & 50\% & 25\% \\
 \hline
-Jan & 50\% & 100\% & 50\% & 50\% \\
+Jan & 60\% & 80\% & 50\% & 75\% \\
 \end{tabular}
 \end{table}
 
@@ -113,9 +226,9 @@ Jan & 50\% & 100\% & 50\% & 50\% \\
 \begin{tabular}{ccccc}
 ex3 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 50\% & 100\% & 50\% & 50\% \\
+Klaas & 50\% & 75\% & 50\% & 75\% \\
 \hline
-Jan & 50\% & 0\% & 50\% & 50\% \\
+Jan & 50\% & 25\% & 50\% & 25\% \\
 \end{tabular}
 \end{table} 
 
