@@ -58,7 +58,7 @@
 The algorithm given in the assignment can be represented as a filter bank based on the Haar scaling and wavelet vectors.
 Normally the whole input would be convolved with these vectors.
 However since the two-point sums and differences are taken this is convolution is combined with downscaling.
-Our implementation of a j-scale DWT is based on this algorithm by applying this ``filter bank'' j times.
+Our implementation of a $j$-scale DWT is based on this algorithm by applying this ``filter bank'' $j$ times.
 Otherwise its implementation is rather trivial.
 \lstinputlisting{../lab3ex1/IPdwt.m}
 \item 
@@ -71,12 +71,21 @@ Otherwise its implementation is rather trivial.
 \exercise{2-D wavelet transforms}
 \begin{enumerate}
 \item
+According to the Section $7.5$ in the book the extension of 1D DWT to 2D is simple, because of the separable scaling and wavelet functions.
+It also mentions that the 2D DWT can be computed by first doing a 1D DWT of the columns and then doing a 1D DWT of the rows.
+Note that one could also calculate the DWT first for rows and then for columns.
+Our implementation uses this fact.
+In each iteration $j$ the algorithm of exercise 1 is applied to each row and then to each column to get the approximation, the horizontal detail, the vertical detail and the diagonal detail.
 \lstinputlisting{../lab3ex2/IPdwt2.m}
 \item
 \lstinputlisting{../lab3ex2/IPdwt2scale.m}
 \item
 \lstinputlisting{../lab3ex2/runex2.m}
 \item
+According to Section $7.5$ the 2D inverse DWT can also be computed by using a 1D inverse DWT function.
+So similarly on how our 2D DWT implementation is based on our 1D DWT implemention, the 2D inverse DWT is also based on the 1D DWT implementation.
+Note however that the order of applying 1D DWT first to rows and then columns in the 2D DWT, has to be inverted in the 2D inverse DWT.
+Hence our iplementation first applies a 1D inverse DWT to the columns and the one to the rows.
 \lstinputlisting{../lab3ex2/IPidwt2.m}
 \end{enumerate}
 
