@@ -95,10 +95,13 @@ In each iteration $j$ the algorithm of exercise 1 is applied to each row and the
 
 \lstinputlisting{../lab3ex2/IPdwt2.m}
 \item
-TODO: text
+The result of the IPdwt2 by itself is too dark to see details clearly, since the values in the detail parts of the resulting image are around zero(black).
+Therefore our implementation shifts the input image to the 2d DWT such that the resulting details are centered around a gray value.
+After that we can constrast-stretch the various detail images by iterating over the $j$-scale and at the end the approximation image is stretched.
+
 \lstinputlisting{../lab3ex2/IPdwt2scale.m}
 \item
-TODO: text
+
 \lstinputlisting{../lab3ex2/runex2.m}
 
 \begin{figure}[H]
