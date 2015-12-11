@@ -73,15 +73,16 @@ Otherwise its implementation is rather trivial.
 
 \lstinputlisting{../lab3ex1/IPdwt.m}
 \item 
-For the inverse wavelet transform, the inital length is set to the end of the length of the last sum vector.
-Then for each step the sum and difference vectors are retrieved from the input vector.
+The inverse of the wavelet transform is basicly doing all steps from the \lstinline|IPdtw| in reverse.
+The inital length is set to the end of the length of the last sum vector.
+This can be determined by taking the lenght and divide it by a power of 2 with the scale.
+Then for each step the sum and difference vectors are retrieved from the input vector by taking halves of the input vector.
 Two new component vectors are created for the values. These need to be scaled again to retrieve the right results.
 The component vectors are then interleaved and replace their original values in the input vector.
 This is repeated until the orignal scale of the transformation is reached.
 \lstinputlisting{../lab3ex1/IPidwt.m}
 \end{enumerate}
 
-\newpage
 
 \exercise{2-D wavelet transforms}
 \begin{enumerate}
@@ -142,7 +143,8 @@ The compressed image is then retrieved by applying the inverse wavelet transform
 For the compression ratio the the build-in function of entropy is used to calculate the entropy of the compressed and
 original image.
 %TODO: Jan, klopt dit een beetje of is dit een beetje vaag/kort door de bocht.
-The entropy is a value for how complex an image is. Compressing the image lowers the complexity.
+The entropy is a value for how complex an image is and the minium amount of data which is needed to store the image.
+Compressing the image lowers the complexity.
 Dividing the original entropy by the compressed entropy yields a compression ratio.
 
 \lstinputlisting{../lab3ex3/IPwaveletcompress.m}
@@ -184,6 +186,13 @@ the errors increase almost linearly.
 \label{fig:scaleinc}
 \end{figure}
 
+Figure \ref{fig:scaleinc} show the original image and the 3 compression with different scales.
+Increasing the scale will cause square like artifacts of a single gray value.
+The large spots are created because in with the high scale image, coarse details, such as the upper left corner become
+small differences in the detail compents of that scale. 
+The Thresholding will remove this detail, resulting in a monotone block.
+
+
 \begin{figure}[H]
 \centering
 \begin{tabular}{cc}
@@ -195,6 +204,11 @@ the errors increase almost linearly.
 \caption{Increasing wavelet compression threshold on scale 3 on an image}
 \label{fig:scale3}
 \end{figure}
+
+Figure \ref{fig:scale3} show the compression on the orignal image with an increasing threshold.
+The scale is quite low, so course details are not filtered. Increasing the threshold will remove the fine details.
+This can be seen in a pixelated region around the face. This is caused by the lack of the detail component.
+Essentially, the approximation image is just resized without increasing the detail, resulting in "large" pixels.
 
 \begin{figure}[H]
 \centering
@@ -208,6 +222,14 @@ the errors increase almost linearly.
 \label{fig:scale7}
 \end{figure}
 
+Figure \ref{fig:scale7} shows the orignal image being compressed on a high scale with an increasing threshold.
+The background is almost not visible anymore, only parts of the face contain a bit more detail.
+This is caused by the higher scale. Course details on the higher scale do not have a large difference, thus are removed by the
+threshold algorithm. This results in the large blocks in the lower right image.
+The face contains still some detail, because this is detail is captured on a lower level and the amount of change is higher.
+Thus a higher threshold is needed to remove that detail from the image.
+
+
 
 \end{enumerate}
 
@@ -219,9 +241,9 @@ the errors increase almost linearly.
 \begin{tabular}{ccccc}
 ex1 & design & implementation & answers questions & writing report \\
 \hline
-Klaas & 60\% & 90\% & n.a. & 75\% \\
+Klaas & 60\% & 90\% & n.a. & 50\% \\
 \hline
-Jan & 40\% & 10\% & n.a. & 25\% \\
+Jan & 40\% & 10\% & n.a. & 50\% \\
 \end{tabular}
 \end{table}
 
