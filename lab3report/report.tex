@@ -101,14 +101,15 @@ After that we can constrast-stretch the various detail images by iterating over 
 
 \lstinputlisting{../lab3ex2/IPdwt2scale.m}
 \item
-
-\lstinputlisting{../lab3ex2/runex2.m}
-
+In Figure~\ref{fig:wavelet} the images with labels 1, 4 and 7 are horizontal details of scale 1, 2 and 3 respectivily.
+Similarly images with labels 2, 5 and 8 are diagonal details with scale 1, 2 and 3 respectivily.
+In addition images with labels 3, 6 and 9 are vertical details with scale 1, 2 and 3 respectivily.
+And at last the image with label 10 is the approximation image of scale 3.
 \begin{figure}[H]
 \centering
-\begin{tabular}{cc}
- \includegraphics[width=0.4\textwidth]{../lab3ex2/vase.png} & \includegraphics[width=0.4\textwidth]{../lab3ex2/scaled.png} \\
- Original image & 3 scale wavelet transform \\
+\begin{tabular}{ccc}
+    \includegraphics[width=0.3\textwidth]{../lab3ex2/vase.png} & \includegraphics[width=0.3\textwidth]{../lab3ex2/scaled.png}  & \includegraphics[width=0.3\textwidth]{layout.png}\\
+    Original image & 3 scale wavelet transform & the layout labels of the transform \\
 \end{tabular}
 \caption{3 scale wavelet transform of the orignal image}
 \label{fig:wavelet}
