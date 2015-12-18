@@ -92,13 +92,13 @@ Then we have by the definition of the erosion of $X$ by $B$ that
 \begin{align} \label{eq:ominus}
     X \ominus B &= \{z | (B)_{z} \subseteq X\} \nonumber\\
                 &= \{z | \{z\} \subseteq X\} \\
-                &= X \nonumber
+                &= X. \nonumber
 \end{align}
 Similarly we have by the definition of the dilution of $X$ by $B$ that
 \begin{align} \label{eq:oplus}
     X \oplus B &= \{z | (\hat{B})_{z} \cap X \neq \emptyset\} \nonumber\\
                &= \{z | \{z\} \cap X \neq \emptyset\} \\
-               &= X \nonumber
+               &= X. \nonumber
 \end{align}
 The skeleton of image $X$ with structuring element $B$ is:
 \begin{align*}
@@ -129,11 +129,11 @@ Consider the definition of $(X \ominus kB)$:
              ((\dots(X \ominus B) \ominus B) \ominus \dots) \ominus B) & \quad \text{otherwise} \\
          \end{cases}
 \]
-By repeated application of 
+Note that $X \ominus B = \emptyset$. In addition for $X = \emptyset$ we have that every other erosion in the definition above is
 \begin{equation} \label{eq:eominus}
-    \emptyset \ominus B = \{z | (B)_{z} \subseteq \emptyset\} = \emptyset
+    X \ominus B = \emptyset \ominus B = \{z | (B)_{z} \subseteq \emptyset\} = \emptyset.
 \end{equation}
-and once $X \ominus B = \emptyset$, the previous definition equals to:
+Hence the previous definition $X \ominus kB$ is equal to:
 \begin{equation} \label{eq:kB}
     (X \ominus kB) =
          \begin{cases}
