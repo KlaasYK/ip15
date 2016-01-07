@@ -1,6 +1,4 @@
-
 x = imread('../images/blobs.tif');
-
 mask = makebinary(x,128);
 imwrite(mask,'binarymask.png');
 
@@ -19,10 +17,8 @@ blob3 = makeblob(4);
 % erode the circles (all circles radius < 8 will be removed)
 eroded = makebinary(conv2(mask,blob,"same"),1);
 imwrite(eroded,'convolution.png');
-
 % take the complement as eroding background = dilating foreground
 erodedcomp = not(eroded);
-
 % erode the background two times using different SE
 firstdilate = not(makebinary(conv2(erodedcomp,blob2,"same"),1));
 % or used, since the background uses 1 and foreground 0
