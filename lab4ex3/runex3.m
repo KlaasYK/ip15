@@ -1,50 +1,41 @@
 
 x = imread('../images/blobs.tif');
 
-y = makebinary(x,128);
-imwrite(y,'binary.png');
+mask = makebinary(x,128);
+imwrite(mask,'binarymask.png');
 
-background = x .* y;
+% Calculate the average background noise
+background = x .* mask;
 background2 = 256 - background;
-background2 = background2 .* y;
+background2 = background2 .* mask;
 background2 = 256 - background2;
-maxnoiseval = max(max(background))
-minnoiseval = min(min(background2))
 meannoise = mean([mean(mean(background)) mean(mean(background2)) ]);
-imwrite(background,'background.png');
-imwrite(background2,'background2.png');
 
 % structuring element
 blob = makeblob(8);
 blob2 = makeblob(11);
 blob3 = makeblob(4);
 
-% erode the circles
-z = makebinary(conv2(y,blob,"same"),1);
-imwrite(z,'conv.png');
-% take the complement
-a = not(z);
-% erode the background
-b = not(makebinary(conv2(a,blob2,"same"),1));
-imwrite(b,'filtered.png');
-% restore the image (my octave fucked up, must be and)
-c = or(b,  y);
-c = not(makebinary(conv2(not(c),blob3,"same"),1));
-c = or(c,  y);
+% erode the circles (all circles radius < 8 will be removed)
+eroded = makebinary(conv2(mask,blob,"same"),1);
+imwrite(eroded,'convolution.png');
 
-%c = xor(c, y);
+% take the complement as eroding background = dilating foreground
+erodedcomp = not(eroded);
 
-imwrite(c,'restored.png');
+% erode the background two times using different SE
+firstdilate = not(makebinary(conv2(erodedcomp,blob2,"same"),1));
 
-% generate noise image (choose random, or mean)
-noise = rand(size(x))*(maxnoiseval-minnoiseval) + minnoiseval;
-noise = ones(size(x)) * meannoise;
+% should 
+firstdilate = or(firstdilate,  mask);
+secondilate = not(makebinary(conv2(not(firstdilate),blob3,"same"),1));
+secondilate = or(secondilate,  mask);
 
-noise = noise .* c;
+imwrite(secondilate,'restored.png');
 
-imwrite(noise,'noise.png');
+% generate noise image component
+noise = uint8(ones(size(x)) .* secondilate * meannoise);
 
-restore = not(c);
-restoredim = restore .* x + noise;
+restoredimage = not(secondilate) .* x + noise;
 
-imwrite(restoredim,'final.png');
+imwrite(restoredimage,'final.png');
