@@ -25,17 +25,14 @@ erodedcomp = not(eroded);
 
 % erode the background two times using different SE
 firstdilate = not(makebinary(conv2(erodedcomp,blob2,"same"),1));
-
-% should 
+% or used, since the background uses 1 and foreground 0
 firstdilate = or(firstdilate,  mask);
 secondilate = not(makebinary(conv2(not(firstdilate),blob3,"same"),1));
 secondilate = or(secondilate,  mask);
-
 imwrite(secondilate,'restored.png');
 
 % generate noise image component
 noise = uint8(ones(size(x)) .* secondilate * meannoise);
 
 restoredimage = not(secondilate) .* x + noise;
-
 imwrite(restoredimage,'final.png');
