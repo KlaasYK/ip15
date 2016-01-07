@@ -161,9 +161,9 @@ If we use the equation \ref{eq:eominus}, \ref{eq:kB} and the definition of $X \o
 \end{align*}
 \end{proof}
 \item
+\lstinputlisting{../lab4ex1/IPskeletondecomp.m}
 \lstinputlisting{../lab4ex1/IPdilate.m}
 \lstinputlisting{../lab4ex1/IPerode.m}
-\lstinputlisting{../lab4ex1/IPskeletondecomp.m}
 \item
 \lstinputlisting{../lab4ex1/IPskeletonrecon.m}
 \item
@@ -189,17 +189,38 @@ In addition these images can be seen in Figure \ref{fig:nutsbolts}.
 \exercise{Grey-scale morphology}
 \begin{enumerate}
 \item
-%\lstinputlisting{../lab3ex2/IPdwt2.m}
+Based on the equation 9.2-1 in the book, the implementation of IPgerode is rather straightforward:
+\lstinputlisting{../lab4ex2/IPgdilate.m}
+The only trick used here is to use the NaN value to ignore pixels that are outside the picture or not part of the structuring element.
+This works because $min(NaN, 3) = 3$ and $max(NaN, 3) = 3$.
+The only problem is that $NaN$ does not exist for uint8's, therefore the image has to be converted to double before the calculations and back afterwards.
+Also note that maximum/minimum of the elements of the matrices is calculated by taking the the pairwise maxima/minima.
+The implementation of IPgdilate is based on equation 9.2-2 in the book and the implementation of IPgerode:
+\lstinputlisting{../lab4ex2/IPgerode.m}
 \item
-%\begin{figure}[H]
-%\centering
-%\begin{tabular}{ccc}
-%    \includegraphics[width=0.3\textwidth]{../lab3ex2/vase.png} & \includegraphics[width=0.3\textwidth]{../lab3ex2/scaled.png}  & \\
-%    Original image & 3 scale wavelet transform & the layout labels of the transform \\
-%\end{tabular}
-%\caption{3 scale wavelet transform of the orignal image}
-%\label{fig:wavelet}
-%\end{figure}
+The resulting images are shown in figure \ref{fig:gray}.
+Like mentioned in example 9.9 of the book the erosion increases the size and intensity of dark features, while decreasing the bright ones.
+For example the branches of the plant are darker and bigger, while the water in the vase is less bright.
+This is the result of the minimum operation in the definition of gray-scale erosion.
+Similarly that example in the dilation bright features are increased in size and intensity, while decreasing the size and intensity of dark features.
+In this case the branches are thinner and smaller than in the original and the water in the vase is brighter.
+Also note that smaller features may be more visible by erosion or dilation depending on if they are dark respectivily bright.
+In addition example 9.10 in the book discusses gray-scale openings and closings.
+The opening decreases the intensity of bright features smaller than the structuring element, while keeping the dark ones relative the same.
+Note for example the decreased intensity of the spots in the vase.
+The closing decreased the intensity of dark features smaller than the structuring element, while keeping the bright ones.
+Again the dots in the vase show this.
+\begin{figure}[H]
+\centering
+\begin{tabular}{ccc}
+    \includegraphics[width=0.3\textwidth]{../lab4ex2/gerode.png} & \includegraphics[width=0.3\textwidth]{../lab4ex2/vase.png} & \includegraphics[width=0.3\textwidth]{../lab4ex2/gdilate.png} \\
+    The erosion & Original image & The dilation \\
+    \includegraphics[width=0.3\textwidth]{../lab4ex2/gopening.png} & \includegraphics[width=0.3\textwidth]{../lab4ex2/vase.png} & \includegraphics[width=0.3\textwidth]{../lab4ex2/gclosing.png} \\
+    The opening & Original image & The closing \\
+\end{tabular}
+\caption{The grayscale dilation, erosion, opening and closing of vase.tif with a flat box structuring element.}
+\label{fig:gray}
+\end{figure}
 
 \end{enumerate}
 
