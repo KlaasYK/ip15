@@ -94,7 +94,7 @@ Then we have by the definition of the erosion of $X$ by $B$ that
                 &= \{z | \{z\} \subseteq X\} \\
                 &= X. \nonumber
 \end{align}
-Similarly we have by the definition of the dilution of $X$ by $B$ that
+Similarly we have by the definition of the dilation of $X$ by $B$ that
 \begin{align} \label{eq:oplus}
     X \oplus B &= \{z | (\hat{B})_{z} \cap X \neq \emptyset\} \nonumber\\
                &= \{z | \{z\} \cap X \neq \emptyset\} \\
@@ -161,12 +161,22 @@ If we use the equation \ref{eq:eominus}, \ref{eq:kB} and the definition of $X \o
 \end{align*}
 \end{proof}
 \item
+The implementation of IPskeletondecomp is rather trivial once one has the basic morphologic functions implemented.
+The only non-trivial thing is the substraction in $S_k(X)$.
+Since the second term is always smaller than the first one, because of the extra erosion, the xor function can be used to get the difference.
+Then it is just implementing the definition:
 \lstinputlisting{../lab4ex1/IPskeletondecomp.m}
+The implementation of dilation is also rather simple, because the 2 dimensional convolution function can be used:
 \lstinputlisting{../lab4ex1/IPdilate.m}
+The implementation of erosion can than be based on the one of dilation, because of their duality.
+Note however that the image has to be padded so that this works:
 \lstinputlisting{../lab4ex1/IPerode.m}
 \item
+Basically the reconstruction works by taking the union of dilating the skeleton parts the correct amount.
+This can be done as follows:
 \lstinputlisting{../lab4ex1/IPskeletonrecon.m}
 \item
+To demonstrate that the decomposition and the reconstruction works, we wrote the following script to compare the results:
 \lstinputlisting{../lab4ex1/runex1.m}
 The result of running this script is as follows:
 \begin{lstlisting}
@@ -178,7 +188,7 @@ In addition these images can be seen in Figure \ref{fig:nutsbolts}.
 \centering
 \begin{tabular}{ccc}
     \includegraphics[width=0.3\textwidth]{../lab4ex1/nutsbolts.png} & \includegraphics[width=0.3\textwidth]{../lab4ex1/recon.png}  & \\
-    Original image & the result of the skeleton decomposition and reconstruction \\
+    Original image & The result of decomposition and reconstruction \\
 \end{tabular}
 \caption{The nutsbolts image and its skeleton decomposition reconstruction.}
 \label{fig:nutsbolts}
