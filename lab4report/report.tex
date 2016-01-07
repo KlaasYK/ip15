@@ -161,8 +161,28 @@ If we use the equation \ref{eq:eominus}, \ref{eq:kB} and the definition of $X \o
 \end{align*}
 \end{proof}
 \item
+\lstinputlisting{../lab4ex1/IPdilate.m}
+\lstinputlisting{../lab4ex1/IPerode.m}
+\lstinputlisting{../lab4ex1/IPskeletondecomp.m}
 \item
+\lstinputlisting{../lab4ex1/IPskeletonrecon.m}
 \item
+\lstinputlisting{../lab4ex1/runex1.m}
+The result of running this script is as follows:
+\begin{lstlisting}
+ans = 0.
+\end{lstlisting}
+This means that the origional and the resulting image are identical.
+In addition these images can be seen in Figure \ref{fig:nutsbolts}.
+\begin{figure}[H]
+\centering
+\begin{tabular}{ccc}
+    \includegraphics[width=0.3\textwidth]{../lab4ex1/nutsbolts.png} & \includegraphics[width=0.3\textwidth]{../lab4ex1/recon.png}  & \\
+    Original image & the result of the skeleton decomposition and reconstruction \\
+\end{tabular}
+\caption{The nutsbolts image and its skeleton decomposition reconstruction.}
+\label{fig:nutsbolts}
+\end{figure}
 \end{enumerate}
 
 
