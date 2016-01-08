@@ -236,7 +236,7 @@ Again the dots in the vase show this.
 
 \exercise{Classification}
 
-\noindent suppress the small disks in the image, they need to be eroded.
+\noindent To suppress the small disks in the image, they need to be eroded.
 By choosing a structuring element larger than the small disks, only the large disks will be left.
 However, the large disks are eroded and need to be reconstructed.
 This can be done by dilating the eroded image with a similar structuring element.
@@ -281,14 +281,14 @@ convolution can be seen in figure \ref{fig:convolution}. The small disks have be
 
 \noindent Next the large disks have to be reconstructed.
 This is done by eroding the background instead of the foreground.
-Therefor the complement of figure \ref{fig:convolution} is taken for the next convolution step.
+Therefore the complement of figure \ref{fig:convolution} is taken for the next convolution step.
 A large structuring element is chosen, so to be sure that all pixels from the large disks in figure \ref{fig:binarymask} are covered.
 Normally the and operation would be used to restore the final images, but since both images are actually the complement since
 the disks consist of 0 values, the or operation is used.
 This is derived by using De Morgan's laws for converting the and of two negated operand to the or operation.\\
 
 \noindent Furthermore, using a too large structuring element will restore some parts of the small disks.
-Therefor the dilation is done in two steps: one with a circular structuring with radius 11 and one with radius 4.
+Therefore the dilation is done in two steps: one with a circular structuring with radius 11 and one with radius 4.
 The resulting image can be seen in figure \ref{fig:restored}.
 
 \begin{figure}[H]
@@ -318,7 +318,7 @@ in the first step. The final image can be seen in figure \ref{fig:final}
 \newpage
 
 \lstinputlisting{../lab4ex3/runex3.m}~\\
-\noindent The downside of using this method, is that the mask used is binary. Therefor, the edges of
+\noindent The downside of using this method, is that the mask used is binary. Therefore, the edges of
 the large disks are quite sharp. This can be solved by applying a weak blurring filter.
 Also, the removed noise might be considered a downside of this method, since the visual contrast
 of the image is decreased. However, for computer vision application such as feature detection
@@ -334,7 +334,7 @@ ex1 & design & implementation & answers questions & writing report \\
 \hline
 Klaas & 20\% & 10\% & 20\% & 40\% \\
 \hline
-Jan & 80\% & 90\% & 80\5 & 60\% \\
+Jan & 80\% & 90\% & 80\% & 60\% \\
 \end{tabular}
 \end{table}
 
