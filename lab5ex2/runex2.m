@@ -1,8 +1,7 @@
 x = imread('../images/tiger.tif');
 
-% TODO: use different block sizes
 % 8 gives best closed result
-[y,blocks] = splitmerge(x,8,@IPpredicate);
+[y,blocks] = splitmerge(x,16,@IPpredicate);
 
 mini = min(min(y));
 maxi = max(max(y));
