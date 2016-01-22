@@ -52,15 +52,56 @@
 \exercise{Edge detection}
 \begin{enumerate}
 \item
-%\lstinputlisting{../lab5ex1/IPMarrHilderth.m}
+    The MarrHildreth edge detection algorithm implemented here follows the steps outlined in the book.
+    \begin{itemize}
+        \item convolve the image with a Gaussian filter
+        \item take the Laplacian of the result
+        \item detect zero crossings including a threshold
+    \end{itemize}
+    Note that we could also have choosen to convolve the Gaussian filter with the Laplacian mask and apply that to the image with the same result.
+    In addition we could have evaluated the Laplacian Gaussian function to create the filter.
+    This last method has the drawback that the sum of the created filter is not neccesarily zero, which is a requirement.
+    Our implemtation is as follows:
+\lstinputlisting{../lab5ex1/IPMarrHildreth.m}
+    Note that meshgrid is used to make the Gaussian filter.
+    To get a $n\times n$ filter as in the book the arguments to meshgrid should be in the interval $[n/2, n/2]$.
+    However in the case that $n$ is odd, then we get the wrong dimensions so one is substracted to correct it.
+    In addition $n$ is based on the $6\sigma$ suggestion in the book.
+    Next the image is padded with zeros to prevent artifacts at the edges and the filters are applied.
+    The laplacian filter is the one given in to book, so there is not really something interesting there.
+
+    After this the image is unpadded, so we can start on the zero crossing detection.
+    This is done by comparing the signs of values opposite of eachother in a $3\times 3$ neighborhood.
+    So there are 4 directions that have to be checked: horizontal, vertical and two diagonal directions.
+    The code is based on the shifting images technique to work with these neighborhoods efficiently.
+    Note that thresholding is also incorporated.
+    The threshold is based on the mmaximum absolute difference in all directions.
+    Alternatively we could have used the maximum absolute value, but this seemed less natural because we are comparing it with the absolute difference.
+    The overal result is a binary image with twe value true on places where the edges are.
 \item
+    The results of applying the algorithm can be seen in Figure \ref{fig:marrhil}.
+    The best result we got was the one in the upperright corner, for this one we used a $\sigma$ of $0.6\%$ of the smallest image dimension.
+    While there is still some noise, most on the main edges are clearly visible.
+    In the lower left corner we have a result with the same $sigma$, but without thresholding.
+    The image now has way too much noise to be useful.
+
+    The image in the lower right corner has tresholding, but only a $\sigma$ of $0.1\%$ of the smallest image dimension.
+    This image shows that if the $\sigma$ is too low, some noise will show up in the results.
+    Also note that there is an edge at the edge of the image.
+    This is probably an implementation error, because in this case there should not be a straigth edge in the air or at the right of the house at the bricks.
+    One possible reason could be that the convolution is not implemented correctly.
+    Another theory is that maybe this is the result of the Gaussian filter being cut off too much.
+    Or maybe the Gaussian is not calculated correctly.
+    Sadly we could not confirm that any of these were the cause of the issue.
 \begin{figure}[H]
 \centering
 \begin{tabular}{cc}
-    \includegraphics[width=0.3\textwidth]{../lab4ex2/gerode.png} & \includegraphics[width=0.3\textwidth]{../lab4ex2/vase.png} \\
-    The erosion & Original image \\
+    \includegraphics[width=0.3\textwidth]{../lab5ex1/house.png} & \includegraphics[width=0.3\textwidth]{../lab5ex1/mrhouse06t15.png} \\
+    The original image & $\sigma = 1.536$ and a threshold of 15\% \\
+    \includegraphics[width=0.3\textwidth]{../lab5ex1/mrhouse06t0.png} & \includegraphics[width=0.3\textwidth]{../lab5ex1/mrhouse01t15.png} \\
+    $\sigma = 1.536$ and a threshold of 0\% & $\sigma = 0.256$ and a threshold of 15\% \\
 \end{tabular}
-\caption{TODO}
+\caption{MarrHildreth edge detection with various parameters.}
 \label{fig:marrhil}
 \end{figure}
 \end{enumerate}
